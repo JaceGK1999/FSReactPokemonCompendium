@@ -10,7 +10,7 @@ export async function fetchTypes() {
   return data.map((item) => item.type);
 }
 
-export async function fetchEgg() {
+export async function fetchEggs() {
   const resp = await fetch('https://pokedex-alchemy.herokuapp.com/api/pokedex/eggGroups');
   const data = await resp.json();
   return data.map((item) => item.egg);

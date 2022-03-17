@@ -17,7 +17,8 @@ export default function Main() {
       {pokemon.map((item) => (
         <div key={item.id}>
           <p>
-            {item.pokemon} ({item.type_1}, {item.type_2})
+            {item.pokemon} Poke Type:({item.type_1}, {item.type_2}) Egg Group:({item.egg_group_1},{' '}
+            {item.egg_group_2})
           </p>
         </div>
       ))}
