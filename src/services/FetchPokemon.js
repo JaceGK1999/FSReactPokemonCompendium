@@ -15,3 +15,5 @@ export async function fetchEggs() {
   const data = await resp.json();
   return data.map((item) => item.egg);
 }
+
+
