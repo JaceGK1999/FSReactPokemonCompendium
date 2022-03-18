@@ -22,7 +22,6 @@ export default function Main() {
     const fetchData = async () => {
       const data = await fetchPokemon();
       setPokemon(data);
-      setLoading(false);
 
       const typesData = await fetchTypes();
       setTypes(['all', ...typesData]);
@@ -35,11 +34,10 @@ export default function Main() {
     const fetchData = async () => {
       const data = await fetchFilteredPokemon(selectedType, search, sort);
       setPokemon(data);
+      setLoading(false);
     };
     fetchData();
   }, [selectedType, search, sort]);
-
-  if (loading) return <p>Loading...</p>;
 
   const searchByName = async () => {
     const dataName = await fetchFilteredPokemon(selectedType, search, sort);
@@ -53,6 +51,13 @@ export default function Main() {
   const handleDescChange = () => {
     setSort(desc);
   };
+
+  if (loading)
+    return (
+      <p>
+        <span className="loader"></span>
+      </p>
+    );
 
   return (
     <div>
