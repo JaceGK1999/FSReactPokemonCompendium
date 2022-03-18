@@ -12,15 +12,17 @@ export default function Main() {
   const [selectedType, setSelectedType] = useState('all');
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('asc');
+  const [loading, setLoading] = useState(true);
   // const [sortAsc, setSortAsc] = useState('false');
   // const [sortDesc, setSortDesc] = useState('false');
-  const asc = '';
-  const desc = '';
+  const asc = 'asc';
+  const desc = 'desc';
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchPokemon();
       setPokemon(data);
+      setLoading(false);
 
       const typesData = await fetchTypes();
       setTypes(['all', ...typesData]);
@@ -31,14 +33,16 @@ export default function Main() {
   useEffect(() => {
     if (!selectedType) return;
     const fetchData = async () => {
-      const data = await fetchFilteredPokemon(selectedType);
+      const data = await fetchFilteredPokemon(selectedType, search, sort);
       setPokemon(data);
     };
     fetchData();
-  }, [selectedType]);
+  }, [selectedType, search, sort]);
+
+  if (loading) return <p>Loading...</p>;
 
   const searchByName = async () => {
-    const dataName = await fetchFilteredPokemon(selectedType, search);
+    const dataName = await fetchFilteredPokemon(selectedType, search, sort);
     setPokemon(dataName);
   };
 
@@ -65,7 +69,7 @@ export default function Main() {
       </div>
       {pokemon.map((item) => (
         <div key={item.id}>
-          <p className='poke-card'>
+          <p className="poke-card">
             {item.pokemon} <img className="pokemonImg" src={`${item.url_image}`} /> Poké Type:(
             {item.type_1}, {item.type_2}) Egg Group:(
             {item.egg_group_1}, {item.egg_group_2}) Ability: {item.ability_1}
