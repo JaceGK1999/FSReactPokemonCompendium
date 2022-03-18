@@ -3,12 +3,14 @@ import { fetchPokemon, fetchTypes } from '../services/FetchPokemon';
 import { TypeSearch } from '../components/Search/TypeSearch';
 import { fetchFilteredPokemon } from '../services/FetchFilteredPokemon';
 import SearchBar from '../components/Search/SearchBar';
+import Sorting from '../components/Sort/Sort';
 
 export default function Main() {
   const [pokemon, setPokemon] = useState([]);
   const [types, setTypes] = useState([]);
   const [selectedType, setSelectedType] = useState('all');
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +46,8 @@ export default function Main() {
         callback={searchByName}
       />
       <SearchBar query={search} setQuery={setSearch} callback={searchByName} />
+      <Sorting value={sort === 'asc'} label="Ascending" setSort={setSort} />
+      <Sorting value={sort === 'desc'} label="Descending" setSort={setSort} />
       {pokemon.map((item) => (
         <div key={item.id}>
           <p>
