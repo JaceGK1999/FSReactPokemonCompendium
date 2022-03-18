@@ -1,0 +1,12 @@
+.pokemonImg {
+  height: 150px;
+  width: 150px;
+}
+.poke-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+}
